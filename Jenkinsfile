@@ -35,6 +35,10 @@ pipeline {
           "testtest": {
             echo 'test'
             deleteDir()
+            waitUntil() {
+              echo 'condition'
+            }
+            
             
           }
         )
