@@ -6,6 +6,12 @@ pipeline {
         parallel(
           "First Root": {
             echo 'First Root'
+            sh '''echo 'Hello from shell'
+'''
+            timeout(time: 60) {
+              echo 'Timeout'
+            }
+            
             
           },
           "Second Root": {
@@ -28,6 +34,7 @@ pipeline {
           },
           "testtest": {
             echo 'test'
+            deleteDir()
             
           }
         )
@@ -36,6 +43,8 @@ pipeline {
     stage('Node after again') {
       steps {
         echo 'test'
+        junit(testResults: 'results.txt', allowEmptyResults: true)
+        archiveArtifacts 'artefact.txt'
       }
     }
   }
